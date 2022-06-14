@@ -17,36 +17,35 @@ import javax.annotation.Nullable;
 
 public class HandlerCraftStack implements IMessageHandler<MessageCraftStack, IMessage> {
 
-	@Override
-	@Nullable
-	public IMessage onMessage(final MessageCraftStack message, final MessageContext ctx) {
-		((WorldServer) ctx.getServerHandler().player.world).addScheduledTask(() -> {
-			EntityPlayerMP entityPlayer = ctx.getServerHandler().player;
-			Container container = entityPlayer.openContainer;
-			if (container == null) {
-				return;
-			}
+    @Override
+    @Nullable
+    public IMessage onMessage(final MessageCraftStack message, final MessageContext ctx) {
+        ((WorldServer) ctx.getServerHandler().player.world).addScheduledTask(() -> {
+            EntityPlayerMP entityPlayer = ctx.getServerHandler().player;
+            Container container = entityPlayer.openContainer;
+            if (container == null) {
+                return;
+            }
 
-			if (message.getSlotNumber() < 0 || message.getSlotNumber() >= container.inventorySlots.size()) {
-				return;
-			}
+            if (message.getSlotNumber() < 0 || message.getSlotNumber() >= container.inventorySlots.size()) {
+                return;
+            }
 
-			TweakProvider<Container> tweakProvider = CraftingTweaks.instance.getProvider(container);
-			if (tweakProvider == null) {
-				return;
-			}
+            TweakProvider<Container> tweakProvider = CraftingTweaks.instance.getProvider(container);
+            if (tweakProvider == null) {
+                return;
+            }
 
-			Slot mouseSlot = container.inventorySlots.get(message.getSlotNumber());
-			ItemStack mouseStack = entityPlayer.inventory.getItemStack();
-			int maxTries = 64;
-			while (maxTries > 0 && mouseSlot.getHasStack() && (mouseStack.isEmpty() || mouseStack.getCount() + mouseSlot.getStack().getCount() <= mouseStack.getMaxStackSize())) {
-				container.slotClick(mouseSlot.slotNumber, 0, ClickType.PICKUP, entityPlayer);
-				mouseStack = entityPlayer.inventory.getItemStack();
-				maxTries--;
-			}
-			entityPlayer.connection.sendPacket(new SPacketSetSlot(-1, -1, entityPlayer.inventory.getItemStack()));
-		});
-		return null;
-	}
-
+            Slot mouseSlot = container.inventorySlots.get(message.getSlotNumber());
+            ItemStack mouseStack = entityPlayer.inventory.getItemStack();
+            int maxTries = 64;
+            while (maxTries > 0 && mouseSlot.getHasStack() && (mouseStack.isEmpty() || mouseStack.getCount() + mouseSlot.getStack().getCount() <= mouseStack.getMaxStackSize())) {
+                container.slotClick(mouseSlot.slotNumber, 0, ClickType.PICKUP, entityPlayer);
+                mouseStack = entityPlayer.inventory.getItemStack();
+                maxTries--;
+            }
+            entityPlayer.connection.sendPacket(new SPacketSetSlot(-1, -1, entityPlayer.inventory.getItemStack()));
+        });
+        return null;
+    }
 }

@@ -23,5 +23,4 @@ public interface RotationHandler {
      * @return the resulting slot id after clockwise-rotation
      */
     int rotateSlotId(int slotId, boolean counterClockwise);
-
 }

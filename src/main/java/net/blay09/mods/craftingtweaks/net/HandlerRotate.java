@@ -28,5 +28,4 @@ public class HandlerRotate implements IMessageHandler<MessageRotate, IMessage> {
         });
         return null;
     }
-
 }

@@ -20,6 +20,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import javax.annotation.Nullable;
 
 public class HandlerCompress implements IMessageHandler<MessageCompress, IMessage> {
+
     @Override
     @Nullable
     public IMessage onMessage(MessageCompress message, MessageContext ctx) {

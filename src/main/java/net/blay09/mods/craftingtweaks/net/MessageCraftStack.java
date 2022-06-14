@@ -26,5 +26,4 @@ public class MessageCraftStack implements IMessage {
     public int getSlotNumber() {
         return slotNumber;
     }
-
 }

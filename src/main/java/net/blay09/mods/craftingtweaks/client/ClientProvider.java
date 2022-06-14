@@ -95,7 +95,7 @@ public class ClientProvider {
             if (slot.getHasStack()) {
                 ItemStack itemStack = slot.getStack();
                 if(!itemStack.isEmpty()) {
-                    balanceSlots.put(itemStack.getUnlocalizedName() + "@" + itemStack.getItemDamage(), slot);
+                    balanceSlots.put(itemStack.getTranslationKey() + "@" + itemStack.getItemDamage(), slot);
                 }
             }
         }

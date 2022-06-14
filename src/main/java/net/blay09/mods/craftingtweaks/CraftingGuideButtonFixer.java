@@ -37,8 +37,8 @@ public class CraftingGuideButtonFixer {
     @Nullable
     private static GuiButton findCraftButton(List<GuiButton> buttonList) {
         return buttonList.stream().filter(p -> p instanceof GuiButtonImage &&
-                (((GuiButtonImage) p).resourceLocation.getResourcePath().equals("textures/gui/container/crafting_table.png")
-                        || ((GuiButtonImage) p).resourceLocation.getResourcePath().equals("textures/gui/container/inventory.png"))
+                (((GuiButtonImage) p).resourceLocation.getPath().equals("textures/gui/container/crafting_table.png")
+                        || ((GuiButtonImage) p).resourceLocation.getPath().equals("textures/gui/container/inventory.png"))
         ).findFirst().orElse(null);
     }
 

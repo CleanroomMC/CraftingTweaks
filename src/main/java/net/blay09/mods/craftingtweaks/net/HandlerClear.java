@@ -28,5 +28,4 @@ public class HandlerClear implements IMessageHandler<MessageClear, IMessage> {
         });
         return null;
     }
-
 }

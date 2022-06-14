@@ -21,5 +21,4 @@ public class Compatibility {
         providerPlayer.setTweakBalance(true, false, 0, 0);
         providerPlayer.setTweakClear(true, false, 0, 0);
     }
-
 }

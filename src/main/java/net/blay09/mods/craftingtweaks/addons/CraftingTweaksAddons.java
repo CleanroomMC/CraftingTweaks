@@ -25,7 +25,7 @@ public class CraftingTweaksAddons {
     }
 
     private static void progressiveautomation() {
-        SimpleTweakProvider provider = registerSimpleProvider("progressiveautomation", "com.vanhal.progressiveautomation.gui.container.ContainerCrafter");
+        SimpleTweakProvider<?> provider = registerSimpleProvider("progressiveautomation", "com.vanhal.progressiveautomation.gui.container.ContainerCrafter");
         if(provider != null) {
             provider.setGrid(2, 9);
             provider.setTweakRotate(true, true, 0, 0);
@@ -37,7 +37,7 @@ public class CraftingTweaksAddons {
 
     @SuppressWarnings("unchecked")
     @Nullable
-    private static SimpleTweakProvider registerSimpleProvider(String modid, String className) {
+    private static SimpleTweakProvider<?> registerSimpleProvider(String modid, String className) {
         try {
             if(Loader.isModLoaded(modid)) {
                 return CraftingTweaksAPI.registerSimpleProvider(modid, (Class<? extends Container>) Class.forName(className));

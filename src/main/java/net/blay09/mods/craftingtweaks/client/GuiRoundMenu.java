@@ -45,5 +45,4 @@ public class GuiRoundMenu extends Gui {
         GlStateManager.disableBlend();
         GlStateManager.disableLighting();
     }
-
 }

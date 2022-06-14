@@ -42,7 +42,7 @@ public class CraftingTweaks {
         DISABLED;
 
         public static ModSupportState fromName(String name) {
-                try {
+            try {
                 return valueOf(name.toUpperCase());
             } catch (IllegalArgumentException e) {
                 return ENABLED;
@@ -71,7 +71,7 @@ public class CraftingTweaks {
     public static Configuration config;
 
     private final Map<String, ModSupportState> configMap = Maps.newHashMap();
-    private final Map<Class<? extends Container>, TweakProvider> providerMap = Maps.newHashMap();
+    private final Map<Class<? extends Container>, TweakProvider<?>> providerMap = Maps.newHashMap();
 
     public static boolean hideButtons;
     public static boolean rightClickCraftsStack;
@@ -104,7 +104,7 @@ public class CraftingTweaks {
                     || message.key.equals("RegisterProviderV3"))) {
                 NBTTagCompound tagCompound = message.getNBTValue();
                 String containerClassName = tagCompound.getString("ContainerClass");
-                SimpleTweakProvider provider = new SimpleTweakProviderImpl(message.getSender());
+                SimpleTweakProvider<?> provider = new SimpleTweakProviderImpl<>(message.getSender());
 
                 int buttonOffsetX = tagCompound.hasKey("ButtonOffsetX") ? tagCompound.getInteger("ButtonOffsetX") : -16;
                 int buttonOffsetY = tagCompound.hasKey("ButtonOffsetY") ? tagCompound.getInteger("ButtonOffsetY") : 16;
@@ -187,13 +187,13 @@ public class CraftingTweaks {
                     try {
                         Class<?> functionClass = Class.forName(getGridStartFunction);
                         if (!Function.class.isAssignableFrom(functionClass)) {
-                            logger.error("%s sent an invalid GetGridStartFunction - it must implement Function<Container, Integer>", message.getSender());
+                            logger.error("{} sent an invalid GetGridStartFunction - it must implement Function<Container, Integer>", message.getSender());
                             return;
                         }
                         Function<Container, Integer> function = (Function<Container, Integer>) functionClass.newInstance();
                         provider.setGetGridStartFunction(function);
                     } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-                        logger.error("%s sent an invalid GetGridStartFunction: %s", message.getSender(), e.getMessage());
+                        logger.error("{} sent an invalid GetGridStartFunction: {}", message.getSender(), e.getMessage());
                     }
                 }
 
@@ -207,7 +207,6 @@ public class CraftingTweaks {
     }
 
     @Mod.EventHandler
-    @SuppressWarnings("unused")
     public void init(FMLInitializationEvent event) {
         proxy.init(event);
 
@@ -215,10 +214,7 @@ public class CraftingTweaks {
     }
 
     @Mod.EventHandler
-    @SuppressWarnings("unused")
     public void postInit(FMLPostInitializationEvent event) {
-        proxy.postInit(event);
-
         Compatibility.vanilla();
         CraftingTweaksAddons.postInit(event);
 
@@ -275,7 +271,7 @@ public class CraftingTweaks {
     }
 
     @SuppressWarnings("unchecked")
-    private void registerProvider(String className, TweakProvider provider) {
+    private void registerProvider(String className, TweakProvider<?> provider) {
         config.getString(provider.getModId(), "addons", ModSupportState.ENABLED.name().toLowerCase(), "enabled, buttons_only, hotkeys_only or disabled", ModSupportState.getValidValues());
         if(Loader.isModLoaded(provider.getModId())) {
             if(provider.load()) {
@@ -310,12 +306,7 @@ public class CraftingTweaks {
     }
 
     public ModSupportState getModSupportState(String modId) {
-        ModSupportState supportState = configMap.get(modId);
-        if(supportState == null) {
-            supportState = ModSupportState.ENABLED;
-            configMap.put(modId, supportState);
-        }
-        return supportState;
+        return configMap.computeIfAbsent(modId, k -> ModSupportState.ENABLED);
     }
 
     private static int getIntOr(NBTTagCompound tagCompound, String key, int defaultVal) {
@@ -325,6 +316,4 @@ public class CraftingTweaks {
     private static boolean getBoolOr(NBTTagCompound tagCompound, String key, boolean defaultVal) {
         return (tagCompound.hasKey(key) ? tagCompound.getBoolean(key) : defaultVal);
     }
-
-
 }

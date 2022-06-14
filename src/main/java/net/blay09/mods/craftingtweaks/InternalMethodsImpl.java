@@ -46,5 +46,4 @@ public class InternalMethodsImpl implements InternalMethods {
     public GuiButton createClearButton(int id, @Nullable GuiContainer parentGui, int x, int y) {
         return new GuiTweakButton(parentGui, x, y, 32, 0, GuiTweakButton.TweakOption.Clear, id);
     }
-
 }

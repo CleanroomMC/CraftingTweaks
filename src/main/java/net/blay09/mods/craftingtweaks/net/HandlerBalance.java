@@ -32,5 +32,4 @@ public class HandlerBalance implements IMessageHandler<MessageBalance, IMessage>
         });
         return null;
     }
-
 }

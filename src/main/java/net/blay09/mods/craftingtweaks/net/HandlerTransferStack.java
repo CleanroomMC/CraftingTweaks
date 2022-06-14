@@ -51,5 +51,4 @@ public class HandlerTransferStack implements IMessageHandler<MessageTransferStac
         });
         return null;
     }
-
 }

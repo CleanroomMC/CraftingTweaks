@@ -26,5 +26,4 @@ public class MessageTransferStack implements IMessage {
         buf.writeByte(id);
         buf.writeInt(slotNumber);
     }
-
 }

@@ -5,5 +5,4 @@ import java.util.List;
 public interface ITooltipProvider {
 
     void addInformation(List<String> tooltip);
-
 }

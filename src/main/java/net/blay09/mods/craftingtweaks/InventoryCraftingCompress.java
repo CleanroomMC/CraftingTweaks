@@ -12,5 +12,4 @@ public class InventoryCraftingCompress extends InventoryCrafting {
             setInventorySlotContents(i, itemStack.copy());
         }
     }
-
 }

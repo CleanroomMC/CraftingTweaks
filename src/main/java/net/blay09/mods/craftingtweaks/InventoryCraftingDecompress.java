@@ -10,5 +10,4 @@ public class InventoryCraftingDecompress extends InventoryCrafting {
         super(container, 3, 3);
         setInventorySlotContents(0, itemStack.copy());
     }
-
 }

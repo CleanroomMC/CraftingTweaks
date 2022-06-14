@@ -1,7 +1,7 @@
 buildscript {
     repositories {
         jcenter()
-        maven { url = "http://files.minecraftforge.net/maven" }
+        maven { url = "https://maven.minecraftforge.net" }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
@@ -12,8 +12,6 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 apply from: 'gradle/scripts/common.gradle'
 apply from: 'gradle/scripts/with-api.gradle'
 apply from: 'gradle/scripts/with-at.gradle'
-
-apply from: 'dependencies.gradle'
 
 def BUILD_NUMBER = System.getenv("BUILD_NUMBER") ?: "0"
 
@@ -31,6 +29,10 @@ minecraft {
     runDir = "run"
     useDepAts = true
     mappings = mappings_version
+}
+
+dependencies {
+
 }
 
 processResources{
