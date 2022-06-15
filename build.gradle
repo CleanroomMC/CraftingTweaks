@@ -21,7 +21,7 @@ compileJava {
 }
 
 version = major_version + "." + minor_version + "." + BUILD_NUMBER
-group = "net.blay09.mods"
+group = "com.cleanroommc"
 archivesBaseName = mod_name + "_" + minecraft_version
 
 minecraft {
