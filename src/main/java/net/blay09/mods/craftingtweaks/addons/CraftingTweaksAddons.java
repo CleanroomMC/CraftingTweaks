@@ -16,10 +16,11 @@ public class CraftingTweaksAddons {
     public static final Logger logger = LogManager.getLogger();
 
     protected static final String MODID_EXC = "extendedcrafting",
-            MODID_AVA = "avaritia";
+            MODID_AVA = "avaritia",
+            MODID_FOR = "forestry";
 
     public static void postInit(FMLPostInitializationEvent event) {
-        // Extended Crafting
+        // Extended Crafting: Basic, Advanced, Elite, and Ultimate Tables
         if (Loader.isModLoaded(MODID_EXC)) {
             registerSimpleProvider(MODID_EXC, "com.blakebr0.extendedcrafting.client.container.ContainerBasicTable");
             registerProvider("com.blakebr0.extendedcrafting.client.container.ContainerAdvancedTable", new ProviderExtendedCrafting(new AdvancedTableRotation(), 25));
@@ -27,9 +28,21 @@ public class CraftingTweaksAddons {
             registerProvider("com.blakebr0.extendedcrafting.client.container.ContainerUltimateTable", new ProviderExtendedCrafting(new UltimateTableRotation(), 81));
         }
 
-        // Avaritia
+        // Avaritia: Extreme Crafting Table
         if (Loader.isModLoaded(MODID_AVA)) {
-            registerProvider("morph.avaritia.container.ContainerExtremeCrafting", new ProviderExtendedCrafting(new UltimateTableRotation(), 81));
+            registerProvider("morph.avaritia.container.ContainerExtremeCrafting", new ProviderExtendedCrafting(MODID_AVA, new UltimateTableRotation(), 81));
+        }
+
+        // Forestry: Workbench
+        if (Loader.isModLoaded(MODID_FOR)) {
+            SimpleTweakProvider<?> provider = registerSimpleProvider(MODID_FOR, "forestry.worktable.gui.ContainerWorktable");
+            if (provider != null) {
+                provider.setPhantomItems(true);
+                provider.setGrid(54, 9);
+                provider.setTweakRotate(true, true, -16, 20);
+                provider.setTweakBalance(true, true, -16, 38);
+                provider.setTweakClear(true, true, -16, 56);
+            }
         }
     }
 

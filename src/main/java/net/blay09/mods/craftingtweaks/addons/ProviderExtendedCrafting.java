@@ -18,17 +18,23 @@ import java.util.List;
 public class ProviderExtendedCrafting implements TweakProvider<Container> {
 
     private final DefaultProviderV2 defaultProvider = CraftingTweaksAPI.createDefaultProviderV2();
+    private final String modid;
     private final RotationHandler rotationHandler;
     private final int gridSize;
 
     public ProviderExtendedCrafting(RotationHandler rotationHandler, int gridSize) {
+        this(CraftingTweaksAddons.MODID_EXC, rotationHandler, gridSize);
+    }
+
+    public ProviderExtendedCrafting(String modid, RotationHandler rotationHandler, int gridSize) {
+        this.modid = modid;
         this.rotationHandler = rotationHandler;
         this.gridSize = gridSize;
     }
 
     @Override
     public String getModId() {
-        return CraftingTweaksAddons.MODID_EXC;
+        return modid;
     }
 
     @Override
