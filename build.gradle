@@ -31,8 +31,15 @@ minecraft {
     mappings = mappings_version
 }
 
-dependencies {
+repositories {
+    maven {
+        url = "https://www.cursemaven.com"
+    }
+}
 
+dependencies {
+    runtime "curse.maven:extended-crafting-268387:2777071"
+    runtime "curse.maven:cucumber-272335:2645867"
 }
 
 processResources{
