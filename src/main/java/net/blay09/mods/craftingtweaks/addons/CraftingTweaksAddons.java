@@ -15,23 +15,22 @@ public class CraftingTweaksAddons {
 
     public static final Logger logger = LogManager.getLogger();
 
-    protected static final String MODID_EXC = "extendedcrafting";
+    protected static final String MODID_EXC = "extendedcrafting",
+            MODID_AVA = "avaritia";
 
     public static void postInit(FMLPostInitializationEvent event) {
-        if(Loader.isModLoaded("storagesilo")) {
-            registerProvider("uk.binarycraft.storagesilo.blocks.craftingsilo.ContainerCraftingSilo", new ProviderCraftingSilo());
-        }
-
+        // Extended Crafting
         if (Loader.isModLoaded(MODID_EXC)) {
-            extendedCrafting();
+            registerSimpleProvider(MODID_EXC, "com.blakebr0.extendedcrafting.client.container.ContainerBasicTable");
+            registerProvider("com.blakebr0.extendedcrafting.client.container.ContainerAdvancedTable", new ProviderExtendedCrafting(new AdvancedTableRotation(), 25));
+            registerProvider("com.blakebr0.extendedcrafting.client.container.ContainerEliteTable", new ProviderExtendedCrafting(new EliteTableRotation(), 49));
+            registerProvider("com.blakebr0.extendedcrafting.client.container.ContainerUltimateTable", new ProviderExtendedCrafting(new UltimateTableRotation(), 81));
         }
-    }
 
-    private static void extendedCrafting() {
-        registerSimpleProvider(MODID_EXC, "com.blakebr0.extendedcrafting.client.container.ContainerBasicTable");
-        registerProvider("com.blakebr0.extendedcrafting.client.container.ContainerAdvancedTable", new ProviderExtendedCrafting(new AdvancedTableRotation(), 25));
-        registerProvider("com.blakebr0.extendedcrafting.client.container.ContainerEliteTable", new ProviderExtendedCrafting(new EliteTableRotation(), 49));
-        registerProvider("com.blakebr0.extendedcrafting.client.container.ContainerUltimateTable", new ProviderExtendedCrafting(new UltimateTableRotation(), 81));
+        // Avaritia
+        if (Loader.isModLoaded(MODID_AVA)) {
+            registerProvider("morph.avaritia.container.ContainerExtremeCrafting", new ProviderExtendedCrafting(new UltimateTableRotation(), 81));
+        }
     }
 
     @SuppressWarnings("unchecked")

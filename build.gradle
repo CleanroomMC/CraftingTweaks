@@ -38,8 +38,13 @@ repositories {
 }
 
 dependencies {
+    // Extended Crafting
     runtime "curse.maven:extended-crafting-268387:2777071"
     runtime "curse.maven:cucumber-272335:2645867"
+
+    // Avaritia
+    runtime "curse.maven:avaritia-1-10-261348:3143349"
+    runtime "curse.maven:codechicken-lib-1-8-242818:2779848"
 }
 
 processResources{
