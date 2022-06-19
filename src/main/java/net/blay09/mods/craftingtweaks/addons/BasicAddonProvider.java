@@ -10,6 +10,8 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
@@ -69,6 +71,7 @@ public abstract class BasicAddonProvider implements TweakProvider<Container> {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void initGui(GuiContainer guiContainer, List<GuiButton> list) {
         Slot firstSlot = guiContainer.inventorySlots.inventorySlots.get(getCraftingGridStart(FMLClientHandler.instance().getClientPlayerEntity(), guiContainer.inventorySlots, 0));
         int startX = firstSlot.xPos - 19;
